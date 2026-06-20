@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    { "source": "/((?!data/|geo/|assets/|favicon).*)", "destination": "/index.html" }
+  ]
+}

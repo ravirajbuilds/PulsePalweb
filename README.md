@@ -1,0 +1,113 @@
+# PulsePal — U.S. Cardiovascular Health Atlas
+
+An interactive **3D atlas** of U.S. county- and state-level cardiovascular health.
+Every county is **extruded by its metric** and shaded on a **pink → red** ramp
+(taller + redder = higher prevalence), so geographic patterns — the Southeastern
+"Stroke Belt", Appalachia — and their change over time pop out at a glance.
+
+Metrics (age-adjusted prevalence, adults ≥18):
+
+- **High Blood Pressure** (hypertension)
+- **Coronary Heart Disease**
+- **Stroke**
+
+> Inspired by the [Climate Vulnerability Index map](https://map.climatevulnerabilityindex.org/).
+
+## Features
+
+- 🗺️ **3D extruded choropleth** (deck.gl) — height + pink→red color encode the metric; tilt & rotate.
+- ⏱️ **Time slider** with play/animate across years.
+- 🔀 **Compare two years side by side** with a camera-synced split view.
+- 🏛️ **County ↔ State** mode toggle.
+- 🔎 **Fuzzy search** for any ZIP code, county, or state — autozooms to it.
+- 🛈 **Hover** any area for its exact value.
+- 📈 **Compare 2–3 areas** by clicking the map; trend line graphs render below.
+- 🎚️ Adjustable **height exaggeration**.
+- 📱 Responsive, plus **/privacy** and **/support** pages for app-store submission.
+
+## Data
+
+Health measures come from **[CDC PLACES](https://www.cdc.gov/places/)** — model-based,
+small-area estimates derived from the Behavioral Risk Factor Surveillance System
+(BRFSS), **age-adjusted**. County & state geometry comes from the **U.S. Census
+Bureau** (via the [`us-atlas`](https://github.com/topojson/us-atlas) package).
+
+### ⚠️ The committed dataset is a realistic PLACEHOLDER
+
+`data.cdc.gov` is not reachable from every build sandbox, so the repo ships with
+a **synthetic** dataset generated in the **exact CDC PLACES schema**. The
+geography is realistic (Stroke Belt / Appalachia run high; Mountain West / Upper
+Midwest run low) but **the numbers are generated, not measured — do not cite them.**
+The app shows a **DEMO DATA** badge while this is in effect.
+
+### Swapping in real CDC data (no code changes)
+
+1. Allow `data.cdc.gov` in your environment's network egress settings.
+2. (Optional) set release dataset ids / token in `.env` (see `.env.example`).
+3. Run:
+
+   ```bash
+   npm run data:scrape
+   ```
+
+This rewrites `public/data/**` and `public/geo/**` with real values and flips the
+`isPlaceholder` flag off — the frontend reads everything from `meta.json`, so no
+component changes are required.
+
+Regenerate the placeholder any time with `npm run data:placeholder`.
+
+## Quick start
+
+```bash
+npm install
+npm run data:placeholder   # generate data + geometry + search index (already committed)
+npm run dev                # http://localhost:5173
+```
+
+Build / preview:
+
+```bash
+npm run build
+npm run preview
+```
+
+## Project structure
+
+```
+scripts/
+  lib/schema.mjs        Measures, years, state burden, deterministic RNG (shared)
+  lib/geo.mjs           us-atlas → counties/states (50 + DC) + centroids
+  lib/output.mjs        Writes meta/county/state/places + copies geometry (shared)
+  gen-placeholder.mjs   Synthetic dataset in CDC PLACES schema
+  scrape-cdc.mjs        Real CDC PLACES Socrata scraper (same output)
+public/
+  data/                 meta.json, county/<M>.json, state/<M>.json, places.json
+  geo/                  counties-10m.json, states-10m.json (TopoJSON)
+src/
+  components/           MapDeck, MapStage, TopBar, SearchBar, TimeSlider,
+                        MetricSelector, ModeToggle, Legend, ComparisonPanel, AboutModal
+  pages/                PrivacyPage, SupportPage, DocLayout
+  lib/                  data, hooks, colors, format, types, constants
+  store.ts              Zustand app state (camera, metric, mode, year, selections)
+```
+
+## Tech stack
+
+React + TypeScript + Vite · **deck.gl** (3D extruded polygons, self-contained WebGL —
+no basemap tiles needed) · **Fuse.js** (fuzzy search) · **Recharts** (trend lines) ·
+**Zustand** (state) · **d3-scale/-interpolate** (color & elevation).
+
+## Deployment
+
+Static SPA. `vercel.json` rewrites non-asset routes to `index.html` so deep links
+(`/privacy`, `/support`) work. Any static host works with an equivalent SPA fallback.
+
+## Support & privacy
+
+In-app **/support** and **/privacy** pages are included for iOS App Store review.
+Support contact: **vs.vegesna@gmail.com**.
+
+## Disclaimer
+
+For information and education only — **not medical advice**, and the shipped demo
+numbers are synthetic. Figures describe geographic areas, never individuals.

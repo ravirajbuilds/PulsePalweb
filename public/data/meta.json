@@ -1,0 +1,77 @@
+{
+  "title": "PulsePal — U.S. Cardiovascular Health Atlas",
+  "source": "SYNTHETIC PLACEHOLDER — schema-compatible with CDC PLACES (age-adjusted prevalence). Not real data.",
+  "sourceUrl": "https://www.cdc.gov/places/",
+  "isPlaceholder": true,
+  "adjustment": "Age-adjusted prevalence",
+  "generated": "2026-06-20",
+  "years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "measures": [
+    {
+      "id": "BPHIGH",
+      "label": "High Blood Pressure",
+      "short": "High BP",
+      "unit": "% of adults",
+      "description": "Age-adjusted percentage of adults aged ≥18 who have ever been told they have high blood pressure (hypertension).",
+      "colorDomain": [
+        28.6,
+        48.8
+      ],
+      "elevationDomain": [
+        18,
+        55
+      ],
+      "dataMin": 23.7,
+      "dataMax": 49.9
+    },
+    {
+      "id": "CHD",
+      "label": "Coronary Heart Disease",
+      "short": "CHD",
+      "unit": "% of adults",
+      "description": "Age-adjusted percentage of adults aged ≥18 who report having coronary heart disease.",
+      "colorDomain": [
+        4.7,
+        11.5
+      ],
+      "elevationDomain": [
+        2,
+        15
+      ],
+      "dataMin": 2.9,
+      "dataMax": 12
+    },
+    {
+      "id": "STROKE",
+      "label": "Stroke",
+      "short": "Stroke",
+      "unit": "% of adults",
+      "description": "Age-adjusted percentage of adults aged ≥18 who report having had a stroke.",
+      "colorDomain": [
+        2.6,
+        6.8
+      ],
+      "elevationDomain": [
+        1,
+        9
+      ],
+      "dataMin": 1.5,
+      "dataMax": 7.1
+    }
+  ],
+  "countyCount": 3142,
+  "notes": [
+    "These numbers are SYNTHETIC and for layout/QA only — do not cite them.",
+    "Geography is realistic (Stroke Belt & Appalachia run high) but values are generated, not measured.",
+    "State values are the unweighted mean of their counties.",
+    "Run `npm run data:scrape` after allowlisting data.cdc.gov to replace with real CDC PLACES data."
+  ]
+}
