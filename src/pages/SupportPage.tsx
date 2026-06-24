@@ -23,10 +23,11 @@ export default function SupportPage() {
 
       <h2>About PulsePal</h2>
       <p>
-        PulsePal is an interactive 3D atlas of U.S. cardiovascular health. Each county or state is
-        raised and colored by its age-adjusted prevalence of <strong>high blood pressure</strong>,{' '}
-        <strong>coronary heart disease</strong>, or <strong>stroke</strong> — taller and redder means
-        higher prevalence — so you can see geographic patterns and how they change over time.
+        PulsePal is an interactive atlas of U.S. cardiovascular health. Each county or state is
+        colored by its age-adjusted prevalence of <strong>high blood pressure</strong>,{' '}
+        <strong>coronary heart disease</strong>, or <strong>stroke</strong> — redder means higher
+        prevalence — on a map you can tilt and rotate for a perspective view, so you can see
+        geographic patterns and how they change over time.
       </p>
 
       <h2>Getting Started</h2>
@@ -53,8 +54,8 @@ export default function SupportPage() {
           to chart their trends in the panel at the bottom.
         </li>
         <li>
-          <strong>Tilt &amp; rotate</strong> — right-drag (or two-finger drag on touch) to change the
-          3D angle; use the “Height” slider to exaggerate or flatten the relief.
+          <strong>Tilt &amp; rotate</strong> — right-drag (or two-finger drag on touch) to view the
+          map at an angle; drag normally to pan.
         </li>
       </ul>
 
@@ -99,8 +100,8 @@ export default function SupportPage() {
           enabled and your browser or app is up to date, then reload.
         </li>
         <li>
-          <strong>Choppy performance:</strong> lower the “Height” exaggeration, switch to the States
-          view, or close other heavy tabs/apps.
+          <strong>Choppy performance:</strong> switch to the States view, make the browser window
+          smaller, or close other heavy tabs/apps.
         </li>
         <li>
           <strong>Search isn’t finding a place:</strong> try the 5-digit ZIP, or the county name

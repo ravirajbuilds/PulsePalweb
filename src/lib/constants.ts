@@ -24,15 +24,12 @@ export const COMPARE_RGB: [number, number, number][] = [
 ]
 export const MAX_COMPARE = 3
 
-// Continental-US framing for the 3D camera.
+// Continental-US framing. A non-zero pitch gives the flat choropleth a tilted,
+// perspective "3D" look without extruding the polygons.
 export const INITIAL_VIEW = {
   longitude: -96,
   latitude: 38.6,
   zoom: 3.4,
-  pitch: 50,
+  pitch: 45,
   bearing: 0,
 }
-
-// Normalized elevation (0..1) maps to this many meters before the live
-// exaggeration multiplier is applied (deck.gl layer elevationScale).
-export const BASE_ELEVATION = 130000

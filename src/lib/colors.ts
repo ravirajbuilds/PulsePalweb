@@ -39,13 +39,3 @@ export function swatchCss(value: number | undefined, domain: [number, number]): 
   if (value == null || Number.isNaN(value)) return '#2a2f42'
   return ramp(normalize(value, domain))
 }
-
-/** Normalized elevation in meters (before the exaggeration multiplier). */
-export function elevation(
-  value: number | undefined,
-  domain: [number, number],
-  base: number,
-): number {
-  if (value == null || Number.isNaN(value)) return 0
-  return normalize(value, domain) * base
-}

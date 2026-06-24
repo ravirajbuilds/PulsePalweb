@@ -1,9 +1,9 @@
 # PulsePal — U.S. Cardiovascular Health Atlas
 
 An interactive **3D atlas** of U.S. county- and state-level cardiovascular health.
-Every county is **extruded by its metric** and shaded on a **pink → red** ramp
-(taller + redder = higher prevalence), so geographic patterns — the Southeastern
-"Stroke Belt", Appalachia — and their change over time pop out at a glance.
+Every county is shaded on a **pink → red** ramp (redder = higher prevalence) on a
+map you can **tilt and rotate** for a perspective view, so geographic patterns — the
+Southeastern "Stroke Belt", Appalachia — and their change over time pop out at a glance.
 
 Metrics (age-adjusted prevalence, adults ≥18):
 
@@ -15,14 +15,13 @@ Metrics (age-adjusted prevalence, adults ≥18):
 
 ## Features
 
-- 🗺️ **3D extruded choropleth** (deck.gl) — height + pink→red color encode the metric; tilt & rotate.
+- 🗺️ **Tilted-perspective choropleth** (deck.gl) — flat pink→red polygons on a map plane you can pan, tilt & rotate.
 - ⏱️ **Time slider** with play/animate across years.
 - 🔀 **Compare two years side by side** with a camera-synced split view.
 - 🏛️ **County ↔ State** mode toggle.
 - 🔎 **Fuzzy search** for any ZIP code, county, or state — autozooms to it.
 - 🛈 **Hover** any area for its exact value.
 - 📈 **Compare 2–3 areas** by clicking the map; trend line graphs render below.
-- 🎚️ Adjustable **height exaggeration**.
 - 📱 Responsive, plus **/privacy** and **/support** pages for app-store submission.
 
 ## Data
@@ -93,9 +92,9 @@ src/
 
 ## Tech stack
 
-React + TypeScript + Vite · **deck.gl** (3D extruded polygons, self-contained WebGL —
-no basemap tiles needed) · **Fuse.js** (fuzzy search) · **Recharts** (trend lines) ·
-**Zustand** (state) · **d3-scale/-interpolate** (color & elevation).
+React + TypeScript + Vite · **deck.gl** (tilted/rotatable flat choropleth, self-contained
+WebGL — no basemap tiles needed) · **Fuse.js** (fuzzy search) · **Recharts** (trend lines) ·
+**Zustand** (state) · **d3-scale/-interpolate** (color ramp).
 
 ## Deployment
 

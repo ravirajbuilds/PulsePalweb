@@ -12,7 +12,6 @@ interface AppState {
   compare: boolean
   yearLeft: number
   yearRight: number
-  exaggeration: number
   playing: boolean
   viewState: ViewState
   selections: AreaSelection[]
@@ -26,7 +25,6 @@ interface AppState {
   setCompare: (b: boolean) => void
   setYearLeft: (y: number) => void
   setYearRight: (y: number) => void
-  setExaggeration: (n: number) => void
   setPlaying: (b: boolean) => void
   setViewState: (vs: ViewState) => void
   flyTo: (lon: number, lat: number, zoom?: number) => void
@@ -43,7 +41,6 @@ export const useStore = create<AppState>((set) => ({
   compare: false,
   yearLeft: 2016,
   yearRight: 2022,
-  exaggeration: 1,
   playing: false,
   viewState: { ...INITIAL_VIEW },
   selections: [],
@@ -66,7 +63,6 @@ export const useStore = create<AppState>((set) => ({
   setCompare: (b) => set({ compare: b, playing: false }),
   setYearLeft: (y) => set({ yearLeft: y }),
   setYearRight: (y) => set({ yearRight: y }),
-  setExaggeration: (n) => set({ exaggeration: n }),
   setPlaying: (b) => set({ playing: b }),
 
   setViewState: (vs) => set({ viewState: vs }),

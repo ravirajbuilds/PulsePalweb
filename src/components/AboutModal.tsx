@@ -32,10 +32,13 @@ export default function AboutModal({ meta }: { meta: Meta }) {
             <h3>How to read it</h3>
             <ul>
               <li>
-                Each county/state is <strong>extruded by its metric</strong> — taller and redder
-                means higher prevalence.
+                Each county/state is <strong>shaded by its metric</strong> on a pink→red ramp —
+                redder means higher prevalence.
               </li>
-              <li>Hover for exact values; right-drag to tilt &amp; rotate the map.</li>
+              <li>
+                Hover for exact values; drag to pan and right-drag (or two-finger drag) to tilt
+                &amp; rotate the map.
+              </li>
               <li>Use the time slider, or “Compare years” for a side-by-side of two years.</li>
               <li>Click up to 3 areas (or search) to chart their trend over time.</li>
             </ul>

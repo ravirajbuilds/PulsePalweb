@@ -1,19 +1,12 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
+import type { CSSProperties } from 'react'
 import DeckGL from '@deck.gl/react'
 import { GeoJsonLayer } from '@deck.gl/layers'
-import { AmbientLight, DirectionalLight, LightingEffect } from '@deck.gl/core'
 import type { AreaSelection, GeoFeature, GeoMode, Measure } from '../lib/types'
-import { fillColor, elevation } from '../lib/colors'
+import { fillColor } from '../lib/colors'
 import { formatValue } from '../lib/format'
-import { BASE_ELEVATION, COMPARE_RGB } from '../lib/constants'
+import { COMPARE_RGB } from '../lib/constants'
 import { useStore } from '../store'
-
-// Soft studio lighting so the extruded heights read clearly in 3D.
-const lightingEffect = new LightingEffect({
-  ambient: new AmbientLight({ color: [255, 255, 255], intensity: 1.05 }),
-  sun: new DirectionalLight({ color: [255, 255, 255], intensity: 1.3, direction: [-1, -3, -1] }),
-  fill: new DirectionalLight({ color: [255, 235, 240], intensity: 0.6, direction: [2, 1, -1] }),
-})
 
 const NO_DATA_LINE: [number, number, number, number] = [12, 16, 28, 140]
 
@@ -38,11 +31,11 @@ interface Hover {
 export default function MapDeck({ features, values, measure, mode, yearLabel, side }: Props) {
   const viewState = useStore((s) => s.viewState)
   const setViewState = useStore((s) => s.setViewState)
-  const exaggeration = useStore((s) => s.exaggeration)
   const selections = useStore((s) => s.selections)
   const highlightId = useStore((s) => s.highlightId)
   const toggleSelection = useStore((s) => s.toggleSelection)
   const [hover, setHover] = useState<Hover | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const selIndex = useMemo(() => {
     const m = new Map<string, number>()
@@ -51,6 +44,8 @@ export default function MapDeck({ features, values, measure, mode, yearLabel, si
   }, [selections])
   const selKey = selections.map((s) => s.id).join(',')
 
+  // Flat choropleth (no extrusion); the camera pitch still gives a tilted,
+  // perspective "3D" view of the map plane.
   const layer = useMemo(
     () =>
       new GeoJsonLayer({
@@ -59,10 +54,7 @@ export default function MapDeck({ features, values, measure, mode, yearLabel, si
         pickable: true,
         stroked: true,
         filled: true,
-        extruded: true,
-        wireframe: false,
-        elevationScale: exaggeration,
-        getElevation: (f: any) => elevation(values[f.id], measure.elevationDomain, BASE_ELEVATION),
+        extruded: false,
         getFillColor: (f: any) => fillColor(values[f.id], measure.colorDomain, 235),
         getLineColor: (f: any) => {
           const idx = selIndex.get(f.id)
@@ -74,9 +66,8 @@ export default function MapDeck({ features, values, measure, mode, yearLabel, si
           selIndex.has(f.id) || highlightId === f.id ? 3 : mode === 'state' ? 1 : 0.4,
         lineWidthUnits: 'pixels',
         lineWidthMinPixels: 0.3,
-        material: { ambient: 0.55, diffuse: 0.65, shininess: 28, specularColor: [40, 40, 50] },
         autoHighlight: true,
-        highlightColor: [255, 255, 255, 50],
+        highlightColor: [255, 255, 255, 60],
         onHover: (info) => {
           const f = info.object as GeoFeature | undefined
           if (!f) return setHover(null)
@@ -97,28 +88,42 @@ export default function MapDeck({ features, values, measure, mode, yearLabel, si
         },
         updateTriggers: {
           getFillColor: [measure.id, yearLabel],
-          getElevation: [measure.id, yearLabel, mode],
           getLineColor: [selKey, highlightId],
           getLineWidth: [selKey, highlightId, mode],
         },
       }),
-    [features, values, measure, mode, side, exaggeration, selIndex, selKey, highlightId, yearLabel, toggleSelection],
+    [features, values, measure, mode, side, selIndex, selKey, highlightId, yearLabel, toggleSelection],
   )
 
+  // Anchor the tooltip at the cursor, flipping to the other side near the
+  // right/bottom edges so it stays on-screen and snug to the pointer.
+  let tipStyle: CSSProperties | undefined
+  if (hover) {
+    const el = containerRef.current
+    const w = el?.clientWidth ?? 0
+    const h = el?.clientHeight ?? 0
+    const flipX = w > 0 && hover.x > w - 250
+    const flipY = h > 0 && hover.y > h - 150
+    tipStyle = {
+      left: hover.x,
+      top: hover.y,
+      transform: `translate(${flipX ? 'calc(-100% - 16px)' : '16px'}, ${flipY ? 'calc(-100% - 16px)' : '16px'})`,
+    }
+  }
+
   return (
-    <div className="map-deck">
+    <div className="map-deck" ref={containerRef}>
       <DeckGL
         style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%' }}
         viewState={viewState}
         onViewStateChange={(e: any) => setViewState(e.viewState)}
         controller={{ dragRotate: true, touchRotate: true, inertia: true } as any}
-        effects={[lightingEffect]}
         layers={[layer]}
         getCursor={({ isHovering }) => (isHovering ? 'pointer' : 'grab')}
       />
       {side && <div className="map-side-badge">{yearLabel}</div>}
       {hover && (
-        <div className="map-tooltip" style={{ left: hover.x + 14, top: hover.y + 14 }}>
+        <div className="map-tooltip" style={tipStyle}>
           <div className="tt-title">
             {hover.name}
             {hover.st ? <span className="tt-st">{hover.st}</span> : null}

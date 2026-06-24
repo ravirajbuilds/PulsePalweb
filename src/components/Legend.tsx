@@ -4,8 +4,6 @@ import { useStore } from '../store'
 
 export default function Legend({ meta }: { meta: Meta }) {
   const measureId = useStore((s) => s.measureId)
-  const exaggeration = useStore((s) => s.exaggeration)
-  const setExaggeration = useStore((s) => s.setExaggeration)
   const measure = meta.measures.find((m) => m.id === measureId) ?? meta.measures[0]
   const [lo, hi] = measure.colorDomain
 
@@ -22,20 +20,8 @@ export default function Legend({ meta }: { meta: Meta }) {
         <span>{hi}</span>
       </div>
       <div className="legend-hint">
-        Taller + redder = higher {measure.short.toLowerCase()}. Right-drag to tilt &amp; rotate.
-      </div>
-      <div className="legend-exag">
-        <span>Height</span>
-        <input
-          type="range"
-          min={0.3}
-          max={4}
-          step={0.1}
-          value={exaggeration}
-          onChange={(e) => setExaggeration(Number(e.target.value))}
-          aria-label="3D height exaggeration"
-        />
-        <span className="exag-val">{exaggeration.toFixed(1)}×</span>
+        Redder = higher {measure.short.toLowerCase()}. Drag to pan, right-drag (or two-finger
+        drag) to tilt &amp; rotate.
       </div>
     </div>
   )

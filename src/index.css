@@ -178,9 +178,6 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius
 .legend-scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .legend-mid { color: var(--muted-2); }
 .legend-hint { margin-top: 8px; font-size: 10.5px; color: var(--muted-2); line-height: 1.35; }
-.legend-exag { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 11px; color: var(--muted); }
-.legend-exag input { flex: 1; }
-.exag-val { font-variant-numeric: tabular-nums; color: var(--text); font-weight: 600; min-width: 30px; text-align: right; }
 
 /* ---------- compare panel ---------- */
 .compare { position: fixed; right: 14px; bottom: max(14px, env(safe-area-inset-bottom)); z-index: 16; width: 380px; max-width: calc(100vw - 28px); overflow: hidden; }
