@@ -206,7 +206,8 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius
 .modal ul { margin: 4px 0; padding-left: 18px; }
 .modal li { margin: 4px 0; font-size: 13.5px; line-height: 1.45; }
 .modal p { font-size: 13.5px; line-height: 1.55; }
-.modal-warn { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.35); border-radius: 10px; padding: 11px 13px; font-size: 12.5px; line-height: 1.5; }
+.modal-warn { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.35); border-radius: 10px; padding: 11px 13px; font-size: 12.5px; line-height: 1.5; margin-top: 10px; }
+.modal-warn-med { background: rgba(244,63,94,0.08); border-color: rgba(244,63,94,0.35); }
 .modal-warn code, .modal code { background: rgba(255,255,255,0.1); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
 .modal-src { color: var(--muted-2); font-size: 11.5px; }
 .modal-notes { color: var(--muted); }
@@ -215,8 +216,9 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius
 .modal-generated { margin-left: auto; color: var(--muted-2); }
 
 /* ---------- mini footer ---------- */
-.mini-foot { position: fixed; bottom: 6px; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; gap: 8px; align-items: center; font-size: 11px; color: var(--muted-2); }
+.mini-foot { position: fixed; bottom: 6px; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; gap: 8px; align-items: center; font-size: 11px; color: var(--muted-2); flex-wrap: wrap; justify-content: center; max-width: 96vw; }
 .mini-foot a { color: var(--muted); }
+.mini-foot-note { color: var(--muted-2); font-style: italic; }
 
 /* ---------- doc pages ---------- */
 .doc-page { min-height: 100%; }
@@ -233,6 +235,7 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius
 .doc ul { padding-left: 20px; }
 .doc-updated { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
 .doc-footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.doc-footer-disclaimer { background: rgba(244,63,94,0.06); border: 1px solid rgba(244,63,94,0.25); border-radius: 10px; padding: 10px 12px; color: #f5d4dc; font-size: 12.5px; }
 .support-contact { background: var(--panel-solid); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin: 16px 0; }
 .support-label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 4px; }
 .support-email { font-size: 20px; font-weight: 700; }

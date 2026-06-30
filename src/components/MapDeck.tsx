@@ -117,7 +117,14 @@ export default function MapDeck({ features, values, measure, mode, yearLabel, si
         style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%' }}
         viewState={viewState}
         onViewStateChange={(e: any) => setViewState(e.viewState)}
-        controller={{ dragRotate: true, touchRotate: true, inertia: true } as any}
+        controller={{
+          dragRotate: true,
+          touchRotate: true,
+          inertia: true,
+          minZoom: 2.5,
+          maxZoom: 12,
+          maxPitch: 60,
+        } as any}
         layers={[layer]}
         getCursor={({ isHovering }) => (isHovering ? 'pointer' : 'grab')}
       />

@@ -22,7 +22,7 @@ Metrics (age-adjusted prevalence, adults ≥18):
 - 🔎 **Fuzzy search** for any ZIP code, county, or state — autozooms to it.
 - 🛈 **Hover** any area for its exact value.
 - 📈 **Compare 2–3 areas** by clicking the map; trend line graphs render below.
-- 📱 Responsive, plus **/privacy** and **/support** pages for app-store submission.
+- 📱 Responsive, plus **/privacy**, **/support**, and **/terms** pages for app-store submission.
 
 ## Data
 
@@ -99,12 +99,15 @@ WebGL — no basemap tiles needed) · **Fuse.js** (fuzzy search) · **Recharts**
 ## Deployment
 
 Static SPA. `vercel.json` rewrites non-asset routes to `index.html` so deep links
-(`/privacy`, `/support`) work. Any static host works with an equivalent SPA fallback.
+(`/privacy`, `/support`, `/terms`) work, and sets baseline security headers
+(`Referrer-Policy`, `X-Content-Type-Options`, `X-Frame-Options`,
+`Permissions-Policy`) plus long-lived cache on hashed assets. Any static host
+works with an equivalent SPA fallback.
 
-## Support & privacy
+## Support, privacy & terms
 
-In-app **/support** and **/privacy** pages are included for iOS App Store review.
-Support contact: **vs.vegesna@gmail.com**.
+In-app **/support**, **/privacy**, and **/terms** pages are included for App
+Store / Play Store review. Support contact: **satish.santhakumar@gmail.com**.
 
 ## Disclaimer
 
