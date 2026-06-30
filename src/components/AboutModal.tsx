@@ -1,31 +1,59 @@
-import { useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { Meta } from '../lib/types'
 
 export default function AboutModal({ meta }: { meta: Meta }) {
   const [open, setOpen] = useState(false)
+  const titleId = useId()
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [open])
+
   return (
     <>
-      <button className="icon-btn" title="About & data sources" onClick={() => setOpen(true)}>
+      <button
+        className="icon-btn"
+        title="About & data sources"
+        aria-label="About PulsePal and data sources"
+        onClick={() => setOpen(true)}
+      >
         ⓘ
       </button>
       {open && (
         <div className="modal-backdrop" onClick={() => setOpen(false)}>
-          <div className="modal glass" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="modal glass"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            onClick={(e) => e.stopPropagation()}
+          >
             <button className="modal-close" onClick={() => setOpen(false)} aria-label="Close">
               ✕
             </button>
-            <h2>PulsePal</h2>
+            <h2 id={titleId}>PulsePal</h2>
             <p className="modal-tag">
               An interactive 3D atlas of U.S. cardiovascular health by county and state.
             </p>
 
             {meta.isPlaceholder && (
-              <div className="modal-warn">
+              <div className="modal-warn" role="note">
                 <strong>Demo data.</strong> The map currently shows <em>synthetic placeholder</em>{' '}
                 values in the exact CDC PLACES schema so every feature works. Run{' '}
-                <code>npm run data:scrape</code> after allowlisting <code>data.cdc.gov</code> to load
-                real CDC numbers — no code changes needed.
+                <code>npm run data:scrape</code> after allowlisting <code>data.cdc.gov</code> to
+                load real CDC numbers — no code changes needed. <strong>Do not cite</strong> these
+                figures.
               </div>
             )}
 
@@ -62,15 +90,24 @@ export default function AboutModal({ meta }: { meta: Meta }) {
               </ul>
             )}
 
+            <div className="modal-warn modal-warn-med" role="note">
+              <strong>Not medical advice.</strong> PulsePal is for information and education only.
+              Figures describe geographic areas, never individuals. Consult a qualified healthcare
+              professional for any medical concern.
+            </div>
+
             <div className="modal-foot">
               <Link to="/privacy" onClick={() => setOpen(false)}>
-                Privacy Policy
+                Privacy
               </Link>
               <span>·</span>
               <Link to="/support" onClick={() => setOpen(false)}>
                 Support
               </Link>
               <span>·</span>
+              <Link to="/terms" onClick={() => setOpen(false)}>
+                Terms
+              </Link>
               <span className="modal-generated">Data generated {meta.generated}</span>
             </div>
           </div>

@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import type { ReactNode } from 'react'
 
-export const SUPPORT_EMAIL = 'vs.vegesna@gmail.com'
+export const SUPPORT_EMAIL = 'satish.santhakumar@gmail.com'
 
 export default function DocLayout({
   title,
@@ -12,6 +13,11 @@ export default function DocLayout({
   updated: string
   children: ReactNode
 }) {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    if (typeof window !== 'undefined') window.scrollTo(0, 0)
+  }, [pathname])
+
   return (
     <div className="doc-page">
       <header className="doc-header">
@@ -23,6 +29,7 @@ export default function DocLayout({
           <Link to="/">Atlas</Link>
           <Link to="/privacy">Privacy</Link>
           <Link to="/support">Support</Link>
+          <Link to="/terms">Terms</Link>
         </nav>
       </header>
 
@@ -35,9 +42,14 @@ export default function DocLayout({
             PulsePal · U.S. Cardiovascular Health Atlas · Questions?{' '}
             <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
           </p>
+          <p className="doc-footer-disclaimer">
+            For information and education only — <strong>not medical advice</strong>. Figures
+            describe geographic areas, never individuals. Always consult a qualified healthcare
+            professional for medical concerns.
+          </p>
           <p>
             <Link to="/">Back to the atlas</Link> · <Link to="/privacy">Privacy</Link> ·{' '}
-            <Link to="/support">Support</Link>
+            <Link to="/support">Support</Link> · <Link to="/terms">Terms</Link>
           </p>
         </footer>
       </main>

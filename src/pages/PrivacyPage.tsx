@@ -2,7 +2,7 @@ import DocLayout, { SUPPORT_EMAIL } from './DocLayout'
 
 export default function PrivacyPage() {
   return (
-    <DocLayout title="Privacy Policy" updated="June 20, 2026">
+    <DocLayout title="Privacy Policy" updated="June 30, 2026">
       <p>
         This Privacy Policy explains how the PulsePal application and website (“PulsePal”, “the
         app”, “we”, “us”) handle information when you use it. PulsePal is an interactive map that

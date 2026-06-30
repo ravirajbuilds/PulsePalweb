@@ -2,7 +2,7 @@ import DocLayout, { SUPPORT_EMAIL } from './DocLayout'
 
 export default function SupportPage() {
   return (
-    <DocLayout title="Support & Help" updated="June 20, 2026">
+    <DocLayout title="Support & Help" updated="June 30, 2026">
       <p>
         Need help with PulsePal, found a bug, or have a feature idea? We’re happy to hear from you.
       </p>

@@ -45,9 +45,15 @@ export default function App() {
         <span>·</span>
         <Link to="/support">Support</Link>
         <span>·</span>
+        <Link to="/terms">Terms</Link>
+        <span>·</span>
         <a href={meta.sourceUrl} target="_blank" rel="noreferrer">
           CDC PLACES
         </a>
+        <span>·</span>
+        <span className="mini-foot-note" title="Information only — not medical advice.">
+          Not medical advice
+        </span>
       </footer>
     </div>
   )
