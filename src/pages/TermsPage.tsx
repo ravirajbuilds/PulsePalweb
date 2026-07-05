@@ -2,7 +2,7 @@ import DocLayout, { SUPPORT_EMAIL } from './DocLayout'
 
 export default function TermsPage() {
   return (
-    <DocLayout title="Terms of Use & Medical Disclaimer" updated="June 30, 2026">
+    <DocLayout title="Terms of Use & Medical Disclaimer" updated="July 5, 2026">
       <p>
         These Terms of Use (“Terms”) govern your access to and use of the PulsePal application and
         website (“PulsePal”, “the app”, “we”, “us”). By using PulsePal you agree to these Terms. If
